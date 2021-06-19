@@ -33,8 +33,8 @@ RegisterCommand(refillCommand, function(source, args, rawCommand)
     RequestAnimDict("weapons@pistol@pistol_str")
     while (not HasAnimDictLoaded("weapons@pistol@pistol_str")) do Citizen.Wait(200) end 
     TaskPlayAnim(ped, "weapons@pistol@pistol_str", "reload_aim", 1.0, 1.0, 3000, 0, 1, false, false, false);
-    print("Cantidad de cartuchos restantes = " .. taserCartsLeft);
-    ShowNotification("~g~Taser cargado y listo!.")
+    print('remaining_carts' .. taserCartsLeft);
+    ShowNotification('charged_taser')
 end)
 
 --- Get stungun hash and lower ammo counter ---
@@ -48,7 +48,7 @@ Citizen.CreateThread(function()
         if GetSelectedPedWeapon(ped) == taserModel then
             if IsPedShooting(ped) then
                 taserCartsLeft = taserCartsLeft - 1
-                print("Cartuchos Restantes = " .. taserCartsLeft);
+                print('remaining_carts' .. taserCartsLeft);
             end
         end
 
@@ -56,14 +56,15 @@ Citizen.CreateThread(function()
             if GetSelectedPedWeapon(ped) == taserModel then
 				DisableControlAction(0, 24,  true) -- Shoot 
 				DisableControlAction(0, 92,  true) -- Shoot in car
-				ShowNotification("~y~Ya no tienes mas cartuchos!. Recarga con /" .. refillCommand) else
+				ShowNotification('empty_mag' .. refillCommand) else
                 end
             else
             end
         end
         if longerTazeTime then
-            SetPedMinGroundTimeForStungun(ped, longerTazeSecTime * 1000)
+            SetPedMinGroundTimeForStungun(ped, longerTazeSecTime * 1000);
         end
     end
 end)
+
 

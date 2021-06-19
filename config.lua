@@ -1,0 +1,3 @@
+--Language
+
+Config.Locale = 'en'
